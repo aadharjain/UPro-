@@ -1,15 +1,39 @@
-body
+html,body
 {
-    background-image:url('backk.jpg');
-    background-size:100%;
-}
-#tb1,#tb2{
-	width:220px;
-	padding:10px;
-	border:2px solid gray;
-	margin:0px;
+height: 100%;
+width: 100%;
+/* IE10 Consumer Preview */ 
+background-image: -ms-radial-gradient(center top, circle closest-corner, #3090BD 0%, #123647 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-radial-gradient(center top, circle closest-corner, #3090BD 0%, #123647 100%);
+
+/* Opera */ 
+background-image: -o-radial-gradient(center top, circle closest-corner, #3090BD 0%, #123647 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(radial, center top, 0, center top, 477, color-stop(0, #3090BD), color-stop(1, #123647));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-radial-gradient(center top, circle closest-corner, #3090BD 0%, #123647 100%);
+
+/* W3C Markup, IE10 Release Preview */ 
+background-image: radial-gradient(circle closest-corner at center top, #3090BD 0%, #123647 100%);
 }
 
+h1 {
+  color: #fbfbfb;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 300%;
+}
+
+#b1 {
+  width: 100px;
+  height: 50px;
+}
+
+/*
 #b1{
 	display: inline-block;
     padding: 5px 10px 6px;
@@ -25,3 +49,4 @@ body
     border-bottom: 1px solid rgba(0,0,0,0.25);
     cursor: pointer;
 }
+*/
