@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src=" http://getbridge.com/js/bridge.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script>
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                type: 'line',
+                marginRight: 130,
+                marginBottom: 25
+            },
+            title: {
+                text: 'Estimated value of Pi v/s Number of Trials',
+                x: -20 //center
+            },
+            subtitle: {
+                text: 'Monte Carlo Estimation',
+                x: -20
+            },
+            xAxis: {
+				title: {
+                    text: 'Number of Trials'
+                },
+                categories: total_trials
+            },
+            yAxis: {
+                title: {
+                    text: 'Estimated value of Pi'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        this.x +': '+ this.y +'°C';
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -10,
+                y: 100,
+                borderWidth: 0
+            },
+            series: [{
+                name: 'Estimated Value by the Experiment',
+                data: total_hits
+            }, 	{
+				name: 'Actual Value',
+				data: [7.0, 6.9, 9.5]
+				            }]
+        });
+    });
+    
+});
+</script>
+</head>
+
+<body>
+	<div id="container" style="min-width: 400px; height: 500px; margin: 0 auto"></div>
+<script>
+
+var bridge = new Bridge({apiKey: 'f99ede2465de4114'});
+
+var connectionsToWaitFor = 2;
+
+var numConnections = 0;
+var handleConnection = {
+	message: function(msg) {
+		console.log("Connection received")
+		numConnections++;
+		if (numConnections === connectionsToWaitFor) {
+			bridge.getChannel('function-channel', function(channel) {
+			   channel.message(piforcluster);
+			});
+		}
+	}
+}
+
+bridge.joinChannel('connections', handleConnection);
+
+var hits_so_far = 0;
+var trials_so_far = 0;
+var total_trials = [0];
+var total_hits = [0];
+var messageCB = function(msg) {
+        hits_so_far += msg;
+		trials_so_far += (1000000/2);
+      //document.write(4*total/1000000 + "<br>");
+		total_trials.push(trials_so_far);
+		total_hits.push(hits_so_far);
+		numConnections--;
+		counter--;
+		
+}
+
+var piforcluster = "function calc_pi(message_cb) { starttime = new Date(); console.log('running task '+ starttime.getTime()); var hits = 0; var trials = Math.floor(1000000/2); for(i = 0; i < trials; i++) {var x = Math.random(); var y = Math.random(); if(x*x + y*y <= 1.0){ hits++; } }endtime = new Date(); console.log('finished task '+ (endtime.getTime() - starttime.getTime())); message_cb(hits); }"
+
+var counter = 0;
+
+var functionExecutor = {
+  message: function(msg) {
+    counter++;
+    console.log(counter);
+    if (counter === numConnections) {
+      for(var i = 0; i < numConnections; i++) {
+        bridge.getService('cluster', function(clusterService, name) {
+          clusterService.run(messageCB);
+        });
+      }
+    }
+  }
+}
+
+bridge.joinChannel('ack-channel', functionExecutor);
+bridge.connect();
+</script>
+</body>
+</html> 
