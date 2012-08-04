@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+  <script type="text/javascript" src=" http://getbridge.com/js/bridge.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
+
+<html>
+<body>
+	<div id='output'>
+	</div>
+<script>
+
+$("#output").append("<p>Connecting to bridge.</p>")
+var bridge = new Bridge({apiKey:'f99ede2465de4114'});
+var handler = {
+	connect: function() {
+		bridge.getChannel('connections', function(channel) {
+		   channel.message('connected');
+		});
+	}
+}
+
+var functionExecutor = {
+  message: function(codeToRun) {
+	eval(" handler.run = " + codeToRun);
+	bridge.getChannel('ack-channel', function(channel) { channel.message('ok') })
+	}
+}
+
+bridge.joinChannel('function-channel', functionExecutor);
+bridge.publishService('cluster', handler);
+bridge.connect();
+
+var connect = function() {
+	bridge.getChannel('connections', function(channel) {
+	   channel.message('connected');
+	});
+}
+
+bridge.ready(connect);
+
+</script>
+</body>
+</html>
+
