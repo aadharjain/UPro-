@@ -1,0 +1,27 @@
+body
+{
+    background-image:url('backk.jpg');
+    background-size:100%;
+}
+#tb1,#tb2{
+	width:220px;
+	padding:10px;
+	border:2px solid gray;
+	margin:0px;
+}
+
+#b1{
+	display: inline-block;
+    padding: 5px 10px 6px;
+    color: solid grey;
+    text-decoration: none;
+    font-weight: bold;
+    line-height: 1;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+    border-bottom: 1px solid rgba(0,0,0,0.25);
+    cursor: pointer;
+}
