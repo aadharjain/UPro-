@@ -4,9 +4,11 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="stylesheet" type="text/css" href="css/codemirror.css" />
   <link rel="stylesheet" type="text/css" href="css/ambiance.css">
+  <script type="text/javascript" src=" http://getbridge.com/js/bridge.min.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script type="text/javascript" src="codemirror.js"></script>
   <script type="text/javascript" src="javascript.js"></script>
+  <script type="text/javascript" src="bridgeserver.js"></script>
   <script type="text/javascript" src="myscripts.js"></script>
   
 	<title>Distributed Browser Computing</title> 
@@ -14,8 +16,8 @@
 <body>
   <h1>Distributed Browser Computing</h1>	
 	<form id="myForm" action="">
+       <input id="nodes" type="text" name="numberNodes">
    		 <textarea id="tb1"></textarea>
-   		 <!-- textarea id="tb2"></textarea -->
    		 <input id="b1" type="submit" value="Submit" class="input" />
 	</form>
 
