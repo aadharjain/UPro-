@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+  <script type="text/javascript" src=" http://getbridge.com/js/bridge.min.js"></script>
+</head>
+
+<html>
+<body>
+<script>
+
+var bridge = new Bridge({apiKey:'f99ede2465de4114'});
+
+var helloHandler = {
+  hello: function(cb, start, end){
+       var temp = start + end;
+       cb(temp);
+     }
+}
+
+bridge.publishService('hello-world', helloHandler);
+
+
+
+/*
+bridge.getService('hello-world', function(helloService, name){
+  helloService.hello();
+});
+*/
+bridge.connect();
+
+</script>
+</body>
+</html>
+
