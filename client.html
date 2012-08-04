@@ -6,11 +6,13 @@
 
 <html>
 <body>
+	<div id='progress'>
+	<img src="http://logd.tw.rpi.edu/files/loading.gif" height="10%" width="10%" margin="0 auto"/>
+	</div>
 	<div id='output'>
 	</div>
 <script>
 
-$("#output").append("<p>Connecting to bridge.</p>")
 var bridge = new Bridge({apiKey:'f99ede2465de4114'});
 var handler = {
 	connect: function() {
@@ -22,8 +24,11 @@ var handler = {
 
 var functionExecutor = {
   message: function(codeToRun) {
+	$("#output").append("<p>Working...</p>");
 	eval(" handler.run = " + codeToRun);
 	bridge.getChannel('ack-channel', function(channel) { channel.message('ok') })
+	$("#output").append("<p>Done!</p>");
+	$("#progress").remove();
 	}
 }
 
@@ -34,6 +39,7 @@ bridge.connect();
 var connect = function() {
 	bridge.getChannel('connections', function(channel) {
 	   channel.message('connected');
+	$("#output").append("<p>Connecting...</p>");
 	});
 }
 
