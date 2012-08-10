@@ -91,20 +91,7 @@ var handleConnection = {
 
 bridge.joinChannel('connections', handleConnection);
 
-var hits_so_far = 0;
-var trials_so_far = 0;
-var total_trials = [0];
-var total_hits = [0];
-var messageCB = function(msg) {
-        hits_so_far += msg;
-		trials_so_far += (1000000/2);
-      //document.write(4*total/1000000 + "<br>");
-		total_trials.push(trials_so_far);
-		total_hits.push(hits_so_far);
-		numConnections--;
-		counter--;
-		
-}
+var hits_so_far = 0; \n var trials_so_far = 0; \n var total_trials = [0]; \n var total_hits = [0]; \n var messageCB = function(msg, nodes) { \n \thits_so_far += msg; \n \ttrials_so_far += (1000000/nodes);\n \ttotal_trials.push(trials_so_far);\n \ttotal_hits.push(hits_so_far);\n \tnumConnections--;\n \tcounter--;\n }
 
 var piforcluster = "function calc_pi(message_cb) { starttime = new Date(); console.log('running task '+ starttime.getTime()); var hits = 0; var trials = Math.floor(1000000/2); for(i = 0; i < trials; i++) {var x = Math.random(); var y = Math.random(); if(x*x + y*y <= 1.0){ hits++; } }endtime = new Date(); console.log('finished task '+ (endtime.getTime() - starttime.getTime())); message_cb(hits); }"
 

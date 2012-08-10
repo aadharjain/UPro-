@@ -4,22 +4,47 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="stylesheet" type="text/css" href="css/codemirror.css" />
   <link rel="stylesheet" type="text/css" href="css/ambiance.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/> 
   <script type="text/javascript" src=" http://getbridge.com/js/bridge.min.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script type="text/javascript" src="codemirror.js"></script>
   <script type="text/javascript" src="javascript.js"></script>
   <script type="text/javascript" src="bridgeserver.js"></script>
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <script src="http://code.highcharts.com/modules/exporting.js"></script>
+  <script type="text/javascript" src="myhighcharts.js"></script>
   <script type="text/javascript" src="myscripts.js"></script>
   
 	<title>Distributed Browser Computing</title> 
 </head>
 <body>
-  <h1>Distributed Browser Computing</h1>	
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a id="logo" class="brand pull-left" href="/">CrowdCompute.js</a>      
+      <div id="output" class="pull-right">--</div>
+    </div>
+  </div>
+</div>
+  <div class="container">
+  <div id="content" class="row">
+    <div class="span12">
 	<form id="myForm" action="">
-       <input id="nodes" type="text" name="numberNodes">
+       <h2 class="textheader">Crowd Task</h2>
    		 <textarea id="tb1"></textarea>
-   		 <input id="b1" type="submit" value="Submit" class="input" />
-	</form>
 
+       <h2 class="textheader">Aggregate Task</h2>
+   		 <textarea id="tb2"></textarea>
+       <label class="nodes">
+       Nodes: 
+       <input id="nodes" type="text" name="numberNodes" value="1">
+   		 <input id="b1" class="btn btn-primary" type="submit" value="Submit" class="input" />
+       </label>
+	</form>
+  <button id="startChart" class="btn btn-primary">Chart!</button>
+	<div id="linechart" style="min-width: 400px; height: 500px; margin: 0 auto"></div>
+  </div>
+  </div>
+  </div>
 </body>
 </html>
